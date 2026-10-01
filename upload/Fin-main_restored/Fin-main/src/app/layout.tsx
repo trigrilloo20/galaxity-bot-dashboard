@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { Sidebar } from "@/components/Sidebar";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,14 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Galaxity Network - Servidor de Minecraft",
-  description: "Galaxity Network - Servidor de Minecraft alojado en GalaxityHosting. Un proyecto desde 2019.",
+  title: "Galaxity Bot Panel",
+  description: "Panel de administración para Discord - Galaxity Network",
   icons: {
     icon: "/galaxity-logo.png",
   },
   openGraph: {
-    title: "Galaxity Network",
-    description: "Servidor de Minecraft - Alojado en GalaxityHosting",
+    title: "Galaxity Bot Panel",
+    description: "Panel de administración para Discord",
     type: "website",
   },
 };
@@ -36,8 +38,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
-        <Toaster />
+        <SessionProvider>
+          <Sidebar />
+          {children}
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );
