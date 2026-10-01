@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  discordId     String?   @unique
+  role          Role      @default(USUARIO)
+  
+  accounts      Account[]
+  sessions      Session[]
+  bots          Bot[]
+  auditLogs     AuditLog[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Bot {
+  id            String    @id @default(cuid())
+  name          String
+  token         String    @unique
+  prefix        String    @default("!")
+  status        Boolean   @default(false)
+  owner         User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId       String
+  
+  description   String?
+  settings      Json      @default("{}")
+  commands      Int       @default(0)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model AuditLog {
+  id        String    @id @default(cuid())
+  action    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  details   Json?
+  
+  createdAt DateTime  @default(now())
+}
+
+enum Role {
+  DEVELOPER
+  USUARIO
+  VIP
+  VIP_PLUS
+  MEGA_VIP
+}

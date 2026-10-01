@@ -1,0 +1,208 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ━━━ AUTH ━━━
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+}
+
+// ━━━ USUARIO ━━━
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  discordId     String?   @unique
+  role          Role      @default(USUARIO)
+  
+  // Economía
+  balance       Int       @default(0)
+  totalDonated  Int       @default(0)
+  
+  accounts      Account[]
+  sessions      Session[]
+  bots          Bot[]
+  auditLogs     AuditLog[]
+  tickets       Ticket[]
+  comandos      Comando[]
+  transacciones Transaccion[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// ━━━ BOTS ━━━
+model Bot {
+  id            String    @id @default(cuid())
+  name          String
+  token         String    @unique
+  prefix        String    @default("!")
+  status        Boolean   @default(false)
+  owner         User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId       String
+  
+  description   String?
+  settings      Json      @default("{}")
+  
+  // Estadísticas
+  totalUses     Int       @default(0)
+  aiUses        Int       @default(0)
+  musicUses     Int       @default(0)
+  economyUses   Int       @default(0)
+  
+  // Servidores
+  servidores    ServidorBot[]
+  comandos      Comando[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// ━━━ SERVIDORES ━━━
+model ServidorBot {
+  id            String    @id @default(cuid())
+  guildId       String    @unique
+  guildName     String
+  guildIcon     String?
+  members       Int       @default(0)
+  
+  bot           Bot       @relation(fields: [botId], references: [id], onDelete: Cascade)
+  botId         String
+  
+  // Estadísticas
+  economyEnabled Boolean @default(true)
+  musicEnabled   Boolean @default(true)
+  aiEnabled      Boolean @default(true)
+  
+  economyData   EconomiaServidor?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@unique([botId, guildId])
+}
+
+// ━━━ ECONOMÍA ━━━
+model Transaccion {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  
+  tipo      String    // "gana", "pierde", "transferencia", "donacion"
+  cantidad  Int
+  razon     String?
+  
+  createdAt DateTime  @default(now())
+}
+
+model EconomiaServidor {
+  id        String    @id @default(cuid())
+  servidor  ServidorBot @relation(fields: [servidorId], references: [id], onDelete: Cascade)
+  servidorId String @unique
+  
+  moneda    String    @default("💰")
+  settings  Json      @default("{}")
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// ━━━ TICKETS ━━━
+model Ticket {
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  
+  title       String
+  description String
+  status      TicketStatus @default(ABIERTO)
+  priority    String    @default("normal")
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  closedAt    DateTime?
+}
+
+enum TicketStatus {
+  ABIERTO
+  EN_PROCESO
+  CERRADO
+  RECHAZADO
+}
+
+// ━━━ COMANDOS PERSONALIZADOS ━━━
+model Comando {
+  id          String    @id @default(cuid())
+  bot         Bot       @relation(fields: [botId], references: [id], onDelete: Cascade)
+  botId       String
+  
+  creator     User      @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId   String
+  
+  nombre      String
+  descripcion String
+  respuesta   String
+  
+  uses        Int       @default(0)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@unique([botId, nombre])
+}
+
+// ━━━ LOGS ━━━
+model AuditLog {
+  id        String    @id @default(cuid())
+  action    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  details   Json?
+  
+  createdAt DateTime  @default(now())
+}
+
+// ━━━ ENUMS ━━━
+enum Role {
+  DEVELOPER
+  USUARIO
+  VIP
+  VIP_PLUS
+  MEGA_VIP
+}
