@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Discord Bot Dashboard Models
+model DiscordUser {
+  id            String   @id // Discord User ID
+  username      String
+  discriminator String
+  avatar        String?
+  email         String?
+  accessToken   String?
+  refreshToken  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  guilds        DiscordGuildMember[]
+}
+
+model Guild {
+  id          String   @id // Guild (Server) ID
+  name        String
+  icon        String?
+  description String?
+  ownerUserId String
+  memberCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  members     DiscordGuildMember[]
+  botConfig   BotConfig?
+}
+
+model DiscordGuildMember {
+  id          String   @id @default(cuid())
+  userId      String
+  guildId     String
+  displayName String?
+  roles       String   @default("[]") // JSON array of role IDs
+  joinedAt    DateTime?
+  createdAt   DateTime @default(now())
+  
+  user        DiscordUser @relation(fields: [userId], references: [id])
+  guild       Guild       @relation(fields: [guildId], references: [id])
+  
+  @@unique([userId, guildId])
+}
+
+model BotConfig {
+  id                  String   @id @default(cuid())
+  guildId             String   @unique
+  prefix              String   @default("!")
+  welcomeChannelId    String?
+  welcomeMessage      String?
+  logChannelId        String?
+  autoRoleIds         String   @default("[]") // JSON array
+  moderationEnabled   Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+   
+  guild               Guild    @relation(fields: [guildId], references: [id])
+}
+
+// Legacy models (kept for compatibility)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  discordId String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
