@@ -1,0 +1,555 @@
+   500→function LoreSection() {
+   501→  const timelineEvents = [
+   502→    {
+   503→      year: "2019",
+   504→      title: "El Comienzo",
+   505→      description: "Galaxity Network nació como dinos.aternos.me, un pequeño servidor de Aternos creado por Trgrilloo10 y ShockedRobin. Lo que empezó como un proyecto entre amigos pronto se convirtió en una comunidad de jugadores que disfrutaban juntos de Minecraft.",
+   506→      icon: <Sparkles className="w-5 h-5" />,
+   507→    },
+   508→    {
+   509→      year: "2019-2022",
+   510→      title: "Crecimiento y Comunidad",
+   511→      description: "Poco a poco el servidor fue creciendo. De ser un servidor pequeño en Aternos, la comunidad fue aumentando hasta alcanzar cientos de usuarios conectados diariamente. Era la época dorada de Galaxity Network, donde siempre había alguien en línea y la actividad no paraba.",
+   512→      icon: <Users className="w-5 h-5" />,
+   513→    },
+   514→    {
+   515→      year: "2022-2024",
+   516→      title: "Los Cierres y Regresos",
+   517→      description: "Por diferentes motivos —falta de tiempo, costos, problemas técnicos— el servidor tuvo que cerrar varias veces. Pero cada vez, Trgrilloo10 y ShockedRobin lo volvían a levantar. Hasta ahora, el servidor ha cerrado y reabierto aproximadamente 10 veces. Esta sería la vez número 11 si no logramos sostenerlo.",
+   518→      icon: <AlertTriangle className="w-5 h-5" />,
+   519→    },
+   520→    {
+   521→      year: "2024-2026",
+   522→      title: "GalaxityHosting y la Infraestructura Actual",
+   523→      description: "El servidor migró a GalaxityHosting con almacenamiento NVMe de alto rendimiento. Actualmente utiliza casi medio TB (~500 GB) de espacio. La máquina es potente, pero el costo mensual es elevado y sin suficiente apoyo de la comunidad, mantenerla es cada vez más difícil.",
+   524→      icon: <HardDrive className="w-5 h-5" />,
+   525→    },
+   526→    {
+   527→      year: "Ahora",
+   528→      title: "Galaxity Network Hoy",
+   529→      description: "La actividad diaria bajó considerablemente. De cientos de usuarios diarios pasamos a unos pocos. Los founders siguen apostando por el proyecto, pero la realidad es que sin apoyo —ya sea de la comunidad o de inversionistas— el servidor podría cerrar temporalmente en cualquier momento.",
+   530→      icon: <Server className="w-5 h-5" />,
+   531→    },
+   532→  ];
+   533→
+   534→  return (
+   535→    <section id="lore" className="relative py-24 sm:py-32 overflow-hidden">
+   536→      <div className="absolute top-0 right-0 w-72 h-72 bg-purple-600/5 rounded-full blur-3xl" />
+   537→      <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-600/5 rounded-full blur-3xl" />
+   538→
+   539→      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+   540→        <AnimatedSection className="text-center mb-16">
+   541→          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+   542→            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+   543→              Nuestra Historia
+   544→            </span>
+   545→          </h2>
+   546→          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+   547→            Desde dinos.aternos.me en 2019 hasta Galaxity Network hoy. Un proyecto que ha resistido cierre tras cierre, siempre con la esperanza de volver.
+   548→          </p>
+   549→        </AnimatedSection>
+   550→
+   551→        <div className="relative">
+   552→          <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-600 via-cyan-600 to-purple-600 transform sm:-translate-x-1/2" />
+   553→
+   554→          {timelineEvents.map((event, i) => (
+   555→            <AnimatedSection key={i} delay={i * 0.12} className={`relative flex items-center mb-12 ${i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"}`}>
+   556→              <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-purple-500 rounded-full border-2 border-purple-300 transform -translate-x-1/2 z-10 shadow-lg shadow-purple-500/50" />
+   557→
+   558→              <div className={`ml-12 sm:ml-0 sm:w-1/2 ${i % 2 === 0 ? "sm:pr-16" : "sm:pl-16"}`}>
+   559→                <motion.div
+   560→                  whileHover={{ scale: 1.02, y: -4 }}
+   561→                  transition={{ type: "spring", stiffness: 300 }}
+   562→                  className="glass rounded-xl p-6 hover:border-purple-500/40 transition-all duration-300"
+   563→                >
+   564→                  <div className="flex items-center gap-3 mb-3">
+   565→                    <div className="w-10 h-10 rounded-lg bg-purple-600/20 flex items-center justify-center text-purple-400">
+   566→                      {event.icon}
+   567→                    </div>
+   568→                    <span className="text-sm font-bold text-purple-400 tracking-wider">{event.year}</span>
+   569→                  </div>
+   570→                  <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
+   571→                  <p className="text-gray-400 text-sm leading-relaxed">{event.description}</p>
+   572→                </motion.div>
+   573→              </div>
+   574→            </AnimatedSection>
+   575→          ))}
+   576→        </div>
+   577→      </div>
+   578→    </section>
+   579→  );
+   580→}
+   581→
+   582→/* ─── Closure Notice Section ─── */
+   583→function ClosureSection() {
+   584→  const reasons = [
+   585→    {
+   586→      icon: <Clock className="w-6 h-6" />,
+   587→      title: "Falta de Tiempo",
+   588→      description: "Trgrilloo10 y ShockedRobin han enfrentado una creciente falta de tiempo para dedicarle al servidor. Las responsabilidades personales hacen cada vez más difícil mantener el nivel de atención que Galaxity Network merece.",
+   589→      color: "from-amber-500 to-orange-500",
+   590→    },
+   591→    {
+   592→      icon: <Users className="w-6 h-6" />,
+   593→      title: "Falta de Apoyo",
+   594→      description: "Antes, Galaxity Network contaba con cientos de usuarios diarios. Actualmente, solo unos pocos se conectan al día. Sin una comunidad activa, se pierde la motivación y la viabilidad económica para sostener los costos del servidor.",
+   595→      color: "from-purple-500 to-pink-500",
+   596→    },
+   597→    {
+   598→      icon: <HardDrive className="w-6 h-6" />,
+   599→      title: "Precios Elevados",
+   600→      description: "El servidor usa casi medio TB (~500 GB) de almacenamiento NVMe en GalaxityHosting. El costo de la máquina es alto y sin los ingresos suficientes de la tienda o donaciones, pagar el servidor cada mes se vuelve insostenible.",
+   601→      color: "from-cyan-500 to-blue-500",
+   602→    },
+   603→  ];
+   604→
+   605→  return (
+   606→    <section id="closure" className="relative py-24 sm:py-32 overflow-hidden">
+   607→      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-950/10 to-transparent" />
+   608→
+   609→      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+   610→        <AnimatedSection className="text-center mb-16">
+   611→          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-semibold mb-6">
+   612→            <AlertTriangle className="w-4 h-4" />
+   613→            Aviso de Posible Cierre
+   614→          </div>
+   615→          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+   616→            <span className="bg-gradient-to-r from-red-400 via-amber-400 to-red-400 bg-clip-text text-transparent">
+   617→              Por Qu&eacute; Podr&iacute;amos Cerrar
+   618→            </span>
+   619→          </h2>
+   620→          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+   621→            Galaxity Network enfrenta serios desaf&iacute;os. Si no logramos recaudar los fondos necesarios, el servidor cerrar&aacute; temporalmente y esta ser&iacute;a la vez n&uacute;mero 11.
+   622→          </p>
+   623→        </AnimatedSection>
+   624→
+   625→        <div className="grid md:grid-cols-3 gap-6 mb-16">
+   626→          {reasons.map((reason, i) => (
+   627→            <AnimatedSection key={i} delay={i * 0.15}>
+   628→              <motion.div
+   629→                whileHover={{ y: -8, scale: 1.02 }}
+   630→                transition={{ type: "spring", stiffness: 300 }}
+   631→                className="glass rounded-2xl p-6 h-full hover:border-red-500/30 transition-all duration-300 group"
+   632→              >
+   633→                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+   634→                  {reason.icon}
+   635→                </div>
+   636→                <h3 className="text-xl font-bold text-white mb-3">{reason.title}</h3>
+   637→                <p className="text-gray-400 text-sm leading-relaxed">{reason.description}</p>
+   638→              </motion.div>
+   639→            </AnimatedSection>
+   640→          ))}
+   641→        </div>
+   642→
+   643→        <AnimatedSection>
+   644→          <div className="glass rounded-2xl p-8 sm:p-10">
+   645→            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+   646→              {[
+   647→                { label: "Almacenamiento NVMe", value: "~500 GB", icon: <HardDrive className="w-5 h-5" /> },
+   648→                { label: "Veces Cerrado", value: "10", icon: <AlertTriangle className="w-5 h-5" /> },
+   649→                { label: "Desde", value: "2019", icon: <Clock className="w-5 h-5" /> },
+   650→                { label: "Retorno Estimado", value: "1-4 meses", icon: <Sparkles className="w-5 h-5" /> },
+   651→              ].map((stat, i) => (
+   652→                <motion.div
+   653→                  key={i}
+   654→                  whileHover={{ scale: 1.05 }}
+   655→                  className="text-center"
+   656→                >
+   657→                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 mb-3">
+   658→                    {stat.icon}
+   659→                  </div>
+   660→                  <div className="text-2xl sm:text-3xl font-extrabold text-white mb-1">{stat.value}</div>
+   661→                  <div className="text-gray-500 text-sm">{stat.label}</div>
+   662→                </motion.div>
+   663→              ))}
+   664→            </div>
+   665→          </div>
+   666→        </AnimatedSection>
+   667→      </div>
+   668→    </section>
+   669→  );
+   670→}
+   671→
+   672→/* ─── Investors Section ─── */
+   673→function InvestorsSection() {
+   674→  return (
+   675→    <section id="investors" className="relative py-24 sm:py-32 overflow-hidden">
+   676→      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-3xl -translate-y-1/2" />
+   677→      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-3xl -translate-y-1/2" />
+   678→
+   679→      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+   680→        <AnimatedSection>
+   681→          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-semibold mb-6">
+   682→            <HandCoins className="w-4 h-4" />
+   683→            Buscamos Apoyo
+   684→          </div>
+   685→          <h2 className="text-4xl sm:text-5xl font-extrabold mb-6">
+   686→            <span className="bg-gradient-to-r from-purple-400 via-amber-300 to-cyan-400 bg-clip-text text-transparent">
+   687→              &iquest;Quieres Ayudar?
+   688→            </span>
+   689→          </h2>
+   690→          <p className="text-gray-300 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">
+   691→            Galaxity Network busca inversionistas o personas que quieran ayudar a continuar este proyecto.
+   692→            Llevamos desde 2019 manteniendo este servidor vivo, y aunque hemos cerrado y reabierto muchas veces,
+   693→            siempre hemos vuelto. Con tu apoyo podemos mantener el servidor en l&iacute;nea, mejorar la infraestructura
+   694→            y seguir creciendo como comunidad.
+   695→          </p>
+   696→        </AnimatedSection>
+   697→
+   698→        <AnimatedSection delay={0.15}>
+   699→          <div className="grid sm:grid-cols-3 gap-6 mb-10">
+   700→            {[
+   701→              {
+   702→                icon: <HandCoins className="w-6 h-6" />,
+   703→                title: "Inversionistas",
+   704→                description: "Si quieres invertir en Galaxity Network y ser parte del proyecto, contáctanos. Buscamos personas que crean en el potencial de esta comunidad y quieran ayudarnos a crecer de forma sostenible.",
+   705→                color: "from-purple-600 to-indigo-600",
+   706→              },
+   707→              {
+   708→                icon: <Heart className="w-6 h-6" />,
+   709→                title: "Donaciones",
+   710→                description: "Cualquier aportación ayuda a cubrir los costos mensuales del servidor. Puedes apoyarnos a través de nuestra tienda en Tebex, donde también recibes recompensas dentro del servidor.",
+   711→                color: "from-pink-500 to-rose-500",
+   712→              },
+   713→              {
+   714→                icon: <TrendingUp className="w-6 h-6" />,
+   715→                title: "Comunidad Activa",
+   716→                description: "Simplemente jugando y siendo parte activa de la comunidad ya nos ayudas mucho. Un servidor con jugadores activos atrae a más jugadores y hace que todo sea más sostenible para todos.",
+   717→                color: "from-cyan-500 to-blue-500",
+   718→              },
+   719→            ].map((item, i) => (
+   720→              <motion.div
+   721→                key={i}
+   722→                whileHover={{ y: -6, scale: 1.02 }}
+   723→                transition={{ type: "spring", stiffness: 300 }}
+   724→                className="glass rounded-2xl p-6 text-left hover:border-purple-500/40 transition-all duration-300 group"
+   725→              >
+   726→                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+   727→                  {item.icon}
+   728→                </div>
+   729→                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+   730→                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+   731→              </motion.div>
+   732→            ))}
+   733→          </div>
+   734→        </AnimatedSection>
+   735→
+   736→        <AnimatedSection delay={0.3}>
+   737→          <div className="glass rounded-2xl p-8 sm:p-10 mb-8">
+   738→            <h3 className="text-2xl font-bold text-white mb-4">Lo que ofrecemos a inversionistas</h3>
+   739→            <p className="text-gray-400 leading-relaxed mb-6">
+   740→              Si decides invertir en Galaxity Network, no solo estás apoyando un servidor de Minecraft.
+   741→              Estás respaldando un proyecto con más de 5 años de historia, una base de jugadores que
+   742→              aunque reducida ahora, demostró en el pasado que puede alcanzar cientos de usuarios diarios.
+   743→              Con la inversión adecuada, podemos optimizar el servidor, mejorar la experiencia de juego
+   744→              y atraer de nuevo a la comunidad que alguna vez tuvo Galaxity Network.
+   745→            </p>
+   746→            <div className="grid sm:grid-cols-2 gap-4 text-left">
+   747→              {[
+   748→                { label: "Proyecto activo desde 2019", icon: <Clock className="w-4 h-4 text-purple-400" /> },
+   749→                { label: "Infraestructura NVMe de alto rendimiento", icon: <Server className="w-4 h-4 text-purple-400" /> },
+   750→                { label: "Historial de comunidad con cientos de jugadores", icon: <Users className="w-4 h-4 text-purple-400" /> },
+   751→                { label: "Founders comprometidos con el proyecto", icon: <Heart className="w-4 h-4 text-purple-400" /> },
+   752→              ].map((item, i) => (
+   753→                <div key={i} className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
+   754→                  {item.icon}
+   755→                  <span className="text-gray-300 text-sm">{item.label}</span>
+   756→                </div>
+   757→              ))}
+   758→            </div>
+   759→          </div>
+   760→        </AnimatedSection>
+   761→
+   762→        <AnimatedSection delay={0.4}>
+   763→          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+   764→            <a
+   765→              href="https://galaxity.tebex.io"
+   766→              target="_blank"
+   767→              rel="noopener noreferrer"
+   768→              className="group px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-bold text-lg transition-all duration-300 shadow-lg shadow-purple-900/40 hover:shadow-purple-900/60 flex items-center gap-3"
+   769→            >
+   770→              <ShoppingBag className="w-5 h-5" />
+   771→              Apoyar en la Tienda
+   772→              <ExternalLink className="w-5 h-5" />
+   773→            </a>
+   774→            <a
+   775→              href="#owners"
+   776→              className="px-8 py-4 rounded-xl glass hover:bg-white/10 text-white font-bold text-lg transition-all duration-300 flex items-center gap-3"
+   777→            >
+   778→              <Sparkles className="w-5 h-5 text-purple-400" />
+   779→              Conoce a los Founders
+   780→            </a>
+   781→          </div>
+   782→        </AnimatedSection>
+   783→      </div>
+   784→    </section>
+   785→  );
+   786→}
+   787→
+   788→/* ─── Return Hope Section ─── */
+   789→function ReturnSection() {
+   790→  return (
+   791→    <section className="relative py-24 sm:py-32 overflow-hidden">
+   792→      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl" />
+   793→      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
+   794→
+   795→      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+   796→        <AnimatedSection>
+   797→          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold mb-6">
+   798→            <Sparkles className="w-4 h-4" />
+   799→            No Todo Est&aacute; Perdido
+   800→          </div>
+   801→          <h2 className="text-4xl sm:text-5xl font-extrabold mb-6">
+   802→            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+   803→              Posible Regreso
+   804→            </span>
+   805→          </h2>
+   806→          <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
+   807→            Si Galaxity Network cierra de forma temporal, no es el final. Planeamos regresar aproximadamente
+   808→            despu&eacute;s de <span className="text-cyan-400 font-bold">1 a 4 meses</span> con mejoras significativas.
+   809→            Durante ese tiempo, todos los datos del servidor ser&aacute;n guardados de forma segura en un servidor local
+   810→            mantenido por <span className="text-purple-400 font-bold">Trgrilloo10</span>, asegurando que ning&uacute;n
+   811→            progreso se pierda.
+   812→          </p>
+   813→        </AnimatedSection>
+   814→
+   815→        <AnimatedSection delay={0.2}>
+   816→          <div className="glass rounded-2xl p-8 sm:p-10 mb-10">
+   817→            <h3 className="text-2xl font-bold text-white mb-6">Lo que haremos durante el cierre temporal:</h3>
+   818→            <div className="grid sm:grid-cols-2 gap-6 text-left">
+   819→              {[
+   820→                { icon: <Shield className="w-5 h-5" />, title: "Respaldo Completo", desc: "Todos los datos del servidor serán guardados en un servidor local seguro de Trgrilloo10" },
+   821→                { icon: <Sparkles className="w-5 h-5" />, title: "Corrección de Bugs", desc: "Arreglaremos múltiples bugs y problemas técnicos que afectan la experiencia de juego" },
+   822→                { icon: <Server className="w-5 h-5" />, title: "Optimización", desc: "Mejoraremos el rendimiento del servidor para una experiencia más fluida" },
+   823→                { icon: <Heart className="w-5 h-5" />, title: "Reestructuración", desc: "Rediseñaremos aspectos del servidor para hacerlo más atractivo y sostenible" },
+   824→              ].map((item, i) => (
+   825→                <motion.div
+   826→                  key={i}
+   827→                  whileHover={{ x: 4 }}
+   828→                  className="flex gap-4 items-start p-4 rounded-xl hover:bg-white/5 transition-colors"
+   829→                >
+   830→                  <div className="w-10 h-10 rounded-lg bg-purple-600/20 flex items-center justify-center text-purple-400 shrink-0">
+   831→                    {item.icon}
+   832→                  </div>
+   833→                  <div>
+   834→                    <h4 className="font-bold text-white mb-1">{item.title}</h4>
+   835→                    <p className="text-gray-400 text-sm">{item.desc}</p>
+   836→                  </div>
+   837→                </motion.div>
+   838→              ))}
+   839→            </div>
+   840→          </div>
+   841→        </AnimatedSection>
+   842→
+   843→        <AnimatedSection delay={0.3}>
+   844→          <a
+   845→            href="https://galaxity.tebex.io"
+   846→            target="_blank"
+   847→            rel="noopener noreferrer"
+   848→            className="inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-bold text-lg transition-all duration-300 shadow-lg shadow-purple-900/40 hover:shadow-purple-900/60 hover:scale-105"
+   849→          >
+   850→            <Heart className="w-5 h-5" />
+   851→            Apoya a Galaxity Network
+   852→            <ExternalLink className="w-5 h-5" />
+   853→          </a>
+   854→        </AnimatedSection>
+   855→      </div>
+   856→    </section>
+   857→  );
+   858→}
+   859→
+   860→/* ─── Founders Section ─── */
+   861→function FoundersSection() {
+   862→  const founders = [
+   863→    {
+   864→      name: "Trgrilloo10",
+   865→      role: "Founder",
+   866→      description: "Co-fundador de Galaxity Network desde 2019. Encargado de la infraestructura técnica y el resguardo de datos en su servidor local en caso de cierre temporal. Ha sido el motor principal para mantener el proyecto vivo a lo largo de todos estos años y cierres.",
+   867→      color: "from-purple-600 to-indigo-600",
+   868→    },
+   869→    {
+   870→      name: "ShockedRobin516",
+   871→      role: "Founder",
+   872→      description: "Co-fundador de Galaxity Network. Parte fundamental del proyecto desde sus inicios como dinos.aternos.me. Junto con Trgrilloo10, ha mantenido la visión y el compromiso con la comunidad a través de cada cierre y reapertura del servidor.",
+   873→      color: "from-cyan-600 to-blue-600",
+   874→    },
+   875→  ];
+   876→
+   877→  return (
+   878→    <section id="owners" className="relative py-24 sm:py-32 overflow-hidden">
+   879→      <div className="absolute top-0 left-1/3 w-80 h-80 bg-purple-600/5 rounded-full blur-3xl" />
+   880→
+   881→      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+   882→        <AnimatedSection className="text-center mb-16">
+   883→          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+   884→            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+   885→              Founders
+   886→            </span>
+   887→          </h2>
+   888→          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+   889→            Las personas detr&aacute;s de Galaxity Network que han mantenido este proyecto vivo desde 2019, a trav&eacute;s de cada cierre y cada regreso.
+   890→          </p>
+   891→        </AnimatedSection>
+   892→
+   893→        <div className="grid sm:grid-cols-2 gap-8">
+   894→          {founders.map((founder, i) => (
+   895→            <AnimatedSection key={i} delay={i * 0.2}>
+   896→              <motion.div
+   897→                whileHover={{ y: -8, scale: 1.02 }}
+   898→                transition={{ type: "spring", stiffness: 300 }}
+   899→                className="glass rounded-2xl p-8 text-center hover:border-purple-500/40 transition-all duration-300 group"
+   900→              >
+   901→                <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${founder.color} flex items-center justify-center text-white text-3xl font-extrabold mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+   902→                  {founder.name[0]}
+   903→                </div>
+   904→                <h3 className="text-2xl font-bold text-white mb-1">{founder.name}</h3>
+   905→                <span className="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-semibold mb-4">
+   906→                  {founder.role}
+   907→                </span>
+   908→                <p className="text-gray-400 text-sm leading-relaxed">{founder.description}</p>
+   909→              </motion.div>
+   910→            </AnimatedSection>
+   911→          ))}
+   912→        </div>
+   913→      </div>
+   914→    </section>
+   915→  );
+   916→}
+   917→
+   918→/* ─── Footer ─── */
+   919→function Footer() {
+   920→  return (
+   921→    <footer className="relative py-16 border-t border-purple-900/20">
+   922→      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+   923→        <div className="grid sm:grid-cols-3 gap-10 mb-12">
+   924→          <div>
+   925→            <div className="flex items-center gap-3 mb-4">
+   926→              <Image
+   927→                src="/galaxity-logo.png"
+   928→                alt="Galaxity Network"
+   929→                width={36}
+   930→                height={36}
+   931→                className="rounded-lg"
+   932→              />
+   933→              <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+   934→                Galaxity Network
+   935→              </span>
+   936→            </div>
+   937→            <p className="text-gray-500 text-sm leading-relaxed">
+   938→              Servidor de Minecraft desde 2019. Alojado en GalaxityHosting con dedicaci&oacute;n y pasi&oacute;n por la comunidad. Fundado por Trgrilloo10 y ShockedRobin516.
+   939→            </p>
+   940→          </div>
+   941→
+   942→          <div>
+   943→            <h4 className="text-white font-bold mb-4">Enlaces</h4>
+   944→            <div className="flex flex-col gap-3">
+   945→              <a
+   946→                href="https://discord.galaxity.lol"
+   947→                target="_blank"
+   948→                rel="noopener noreferrer"
+   949→                className="text-gray-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"
+   950→              >
+   951→                <MessageCircle className="w-4 h-4" />
+   952→                Discord
+   953→              </a>
+   954→              <a
+   955→                href="https://galaxity.tebex.io"
+   956→                target="_blank"
+   957→                rel="noopener noreferrer"
+   958→                className="text-gray-400 hover:text-purple-400 transition-colors text-sm flex items-center gap-2"
+   959→              >
+   960→                <ShoppingBag className="w-4 h-4" />
+   961→                Tienda (Tebex)
+   962→              </a>
+   963→              <a
+   964→                href="https://info.galaxity.lol"
+   965→                target="_blank"
+   966→                rel="noopener noreferrer"
+   967→                className="text-gray-400 hover:text-purple-400 transition-colors text-sm flex items-center gap-2"
+   968→              >
+   969→                <Globe className="w-4 h-4" />
+   970→                Sitio Web Oficial
+   971→              </a>
+   972→            </div>
+   973→          </div>
+   974→
+   975→          <div>
+   976→            <h4 className="text-white font-bold mb-4">Informaci&oacute;n</h4>
+   977→            <div className="flex flex-col gap-3 text-gray-500 text-sm">
+   978→              <div className="flex items-center gap-2">
+   979→                <Server className="w-4 h-4 text-purple-400" />
+   980→                <span>Alojado en GalaxityHosting</span>
+   981→              </div>
+   982→              <div className="flex items-center gap-2">
+   983→                <HardDrive className="w-4 h-4 text-purple-400" />
+   984→                <span>~500 GB NVMe</span>
+   985→              </div>
+   986→              <div className="flex items-center gap-2">
+   987→                <Clock className="w-4 h-4 text-purple-400" />
+   988→                <span>Desde 2019</span>
+   989→              </div>
+   990→            </div>
+   991→          </div>
+   992→        </div>
+   993→
+   994→        <div className="border-t border-purple-900/20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+   995→          <p className="text-gray-600 text-sm">
+   996→            &copy; 2019 - 2026 Galaxity Network. Todos los derechos reservados.
+   997→          </p>
+   998→          <div className="flex items-center gap-3">
+   999→            <a
+  1000→              href="https://discord.galaxity.lol"
+  1001→              target="_blank"
+  1002→              rel="noopener noreferrer"
+  1003→              className="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-all duration-300 flex items-center gap-2"
+  1004→            >
+  1005→              <MessageCircle className="w-4 h-4" />
+  1006→              Discord
+  1007→            </a>
+  1008→            <a
+  1009→              href="https://galaxity.tebex.io"
+  1010→              target="_blank"
+  1011→              rel="noopener noreferrer"
+  1012→              className="px-5 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white text-sm font-semibold transition-all duration-300 flex items-center gap-2"
+  1013→            >
+  1014→              <ShoppingBag className="w-4 h-4" />
+  1015→              Tienda
+  1016→            </a>
+  1017→          </div>
+  1018→        </div>
+  1019→
+  1020→        {/* Legal disclaimer */}
+  1021→        <div className="mt-8 pt-6 border-t border-purple-900/10">
+  1022→          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-xs text-center">
+  1023→            <div className="flex items-center gap-1.5">
+  1024→              <Scale className="w-3.5 h-3.5" />
+  1025→              <span>Este servidor no est&aacute; a la venta. Todos los derechos reservados para Galaxity Network.</span>
+  1026→            </div>
+  1027→            <span className="hidden sm:inline">|</span>
+  1028→            <span>Esta web no est&aacute; afiliada ni asociada con Mojang.</span>
+  1029→          </div>
+  1030→        </div>
+  1031→      </div>
+  1032→    </footer>
+  1033→  );
+  1034→}
+  1035→
+  1036→/* ─── Main Page ─── */
+  1037→export default function GalaxityNetworkPage() {
+  1038→  return (
+  1039→    <main className="relative min-h-screen flex flex-col">
+  1040→      <Starfield />
+  1041→      <Navbar />
+  1042→      <div className="relative z-10">
+  1043→        <HeroSection />
+  1044→        <LoreSection />
+  1045→        <ClosureSection />
+  1046→        <InvestorsSection />
+  1047→        <ReturnSection />
+  1048→        <FoundersSection />
+  1049→        <Footer />
+  1050→      </div>
+  1051→    </main>
+  1052→  );
+  1053→}
+  1054→
